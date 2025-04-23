@@ -9,7 +9,7 @@ from typing import List
 router = APIRouter()
 lista = ListaDoblementeEnlazada()
 
-# Configuración base de datos
+
 DATABASE_URL = "sqlite:///./vuelos.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -82,10 +82,8 @@ def reordenar_vuelos(orden: List[int]):
         vuelos_reordenados.append(actual.vuelo)
         actual = actual.siguiente
 
-    # Reorganizar los vuelos según el orden proporcionado
     vuelos_reordenados_ordenados = [vuelos_reordenados[i] for i in orden]
 
-    # Limpiar la lista actual y agregar los vuelos en el nuevo orden
     lista = ListaDoblementeEnlazada()
     for vuelo in vuelos_reordenados_ordenados:
         lista.insertar_al_final(vuelo)
